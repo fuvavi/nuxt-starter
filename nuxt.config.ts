@@ -14,5 +14,10 @@ export default defineNuxtConfig({
                 dir: './assets/icons'
             }
         ]
+    },
+    router: {
+        options: {
+            scrollBehaviorType: 'smooth'
+        }
     }
 })

@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="scrollable">
         <TheHeader />
-        <main class="main-container mt-16">
+        <main class="main-container mt-16 scrollable">
             <slot />
         </main>
         <TheFooter />
