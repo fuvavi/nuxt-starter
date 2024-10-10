@@ -8,5 +8,13 @@ export default defineAppConfig({
         container: {
             constrained: 'max-w-5xl'
         }
+    },
+    icon: {
+        aliases: {
+            github: 'carbon:logo-github',
+            nuxt: 'logos:nuxt-icon',
+            rocket: 'skill-icons:rocket',
+            nxt: 'NuxtLogo'
+        }
     }
 })

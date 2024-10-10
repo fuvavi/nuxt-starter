@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     icon: {
         customCollections: [
             {
-                prefix: 'icon',
+                prefix: 'vicon',
                 dir: './assets/icons'
             }
         ]
