@@ -1,5 +1,5 @@
 <template>
-    <footer class="py-4">
+    <footer class="py-4 h-[--footer-height]">
         <div class="text-center">{{ $t('footer.copyright') }}</div>
         <UButton
             @click="backToTop"
@@ -20,4 +20,3 @@ const backToTop = () => {
 </script>
 
 <style scoped></style>
-

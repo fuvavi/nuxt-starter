@@ -1,7 +1,9 @@
 <template>
     <div class="scrollable">
         <TheHeader />
-        <main class="main-container min-h-[calc(100vh-var(--header-height))] relative">
+        <main
+            class="main-container min-h-[calc(100vh-var(--header-height)-var(--footer-height))] relative"
+        >
             <slot />
         </main>
         <TheFooter />
@@ -9,10 +11,3 @@
 </template>
 
 <script setup lang="ts"></script>
-
-<style scoped lang="scss">
-.main-container {
-    min-height: 2000px;
-}
-</style>
-
