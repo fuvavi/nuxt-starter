@@ -1,6 +1,6 @@
 <template>
-    <footer class="pb-6">
-        <div class="text-center">Copyright by Fuvavi</div>
+    <footer class="py-4">
+        <div class="text-center">{{ $t('footer.copyright') }}</div>
         <UButton
             @click="backToTop"
             icon="mi:chevron-up"
@@ -8,7 +8,7 @@
             color="primary"
             :ui="{ rounded: 'rounded-full' }"
             variant="solid"
-            class="fixed bottom-4 right-4"
+            class="fixed bottom-4 right-4 z-10"
         />
     </footer>
 </template>
@@ -20,3 +20,4 @@ const backToTop = () => {
 </script>
 
 <style scoped></style>
+

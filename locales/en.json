@@ -1,0 +1,14 @@
+{
+    "header": {
+        "menu": {
+            "home": "Home",
+            "about": "About",
+            "services": "Services",
+            "contact": "Contact"
+        }
+    },
+    "footer": {
+        "copyright": "Copyright by Fuvavi"
+    }
+}
+
