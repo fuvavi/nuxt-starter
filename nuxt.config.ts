@@ -20,6 +20,15 @@ export default defineNuxtConfig({
         defaultLocale: 'en',
         langDir: 'locales'
     },
+    veeValidate: {
+        autoImports: true,
+        componentNames: {
+            Form: 'VeeForm',
+            Field: 'VeeField',
+            FieldArray: 'VeeFieldArray',
+            ErrorMessage: 'VeeErrorMessage'
+        }
+    },
     router: {
         options: {
             scrollBehaviorType: 'smooth'
