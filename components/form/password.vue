@@ -2,13 +2,25 @@
     <UFormGroup :label="label" :required="required" :error="error">
         <UInput
             v-model="model"
+            :type="isShowPassword ? 'text' : 'password'"
             :input-class="inputClass"
             :name="name"
             :size="size"
-            :type="type"
             :placeholder="placeholder"
             :icon="icon"
-        />
+            :ui="{ icon: { trailing: { pointer: '' } } }"
+        >
+            <template #trailing>
+                <UButton
+                    color="gray"
+                    variant="link"
+                    :padded="false"
+                    @click="isShowPassword = !isShowPassword"
+                >
+                    <Icon size="20" :name="`iconamoon:eye${isShowPassword ? '-off' : ''}`" />
+                </UButton>
+            </template>
+        </UInput>
     </UFormGroup>
 </template>
 
@@ -23,10 +35,6 @@ defineProps({
     label: {
         type: String,
         default: ''
-    },
-    type: {
-        type: String,
-        default: 'text'
     },
     placeholder: {
         type: String,
@@ -55,6 +63,7 @@ defineProps({
 })
 
 const model = defineModel({ default: '', required: true, type: String })
+const isShowPassword = ref(false)
 </script>
 
 <style scoped></style>

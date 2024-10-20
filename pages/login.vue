@@ -8,71 +8,70 @@
                 class="m-auto w-full rounded-sm bg-white p-4 shadow-none lg:rounded-lg lg:p-8 lg:shadow-lg"
             >
                 <h1 class="mb-6 text-center text-xl font-bold">Login</h1>
-                <Form :validation-schema="loginSchema" @submit="onSubmit">
-                    <UFormGroup required label="Username" class="mb-6">
-                        <Field v-slot="{ handleChange, handleBlur }" name="username" type="text">
-                            <UInput
-                                type="text"
-                                size="lg"
-                                placeholder="Enter your username"
-                                icon="material-symbols:account-circle-outline"
-                                @change="handleChange"
-                                @blur="handleBlur"
-                            />
-                        </Field>
-                        <ErrorMessage
-                            class="mt-2 text-sm text-red-500 dark:text-red-400"
-                            name="username"
-                        />
-                    </UFormGroup>
-                    <UFormGroup required label="Password" name="password" class="mb-6">
-                        <Field v-slot="{ handleChange, handleBlur }" name="password" type="text">
-                            <UInput
-                                size="lg"
-                                type="password"
-                                placeholder="Enter your password"
-                                icon="material-symbols:lock-outline"
-                                @change="handleChange"
-                                @blur="handleBlur"
-                            />
-                        </Field>
-                        <ErrorMessage
-                            class="mt-2 text-sm text-red-500 dark:text-red-400"
-                            name="password"
-                        />
-                    </UFormGroup>
+                <form @submit.prevent="onSubmit">
+                    <FormInput
+                        v-model="username"
+                        :required="true"
+                        :label="t('form.username.label')"
+                        class="mb-6"
+                        :error="errors.username"
+                        :placeholder="t('form.username.placeholder')"
+                        type="text"
+                        icon="material-symbols:account-circle-outline"
+                    />
+                    <FormPassword
+                        v-model="password"
+                        :required="true"
+                        :label="t('form.password.label')"
+                        class="mb-6"
+                        :error="errors.password"
+                        :placeholder="t('form.password.placeholder')"
+                        icon="material-symbols:lock-outline"
+                    />
                     <UButton
                         type="submit"
                         block
                         :loading="isLoading"
                         size="lg"
                         icon="material-symbols:login-rounded"
-                        >Login</UButton
                     >
-                </Form>
+                        Login
+                    </UButton>
+                </form>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { Field, Form, ErrorMessage } from 'vee-validate'
-import { loginSchema } from '~/utils/validation/user.schema'
+import { useForm } from 'vee-validate'
+import { loginSchema } from '~/utils/validation/auth.schema'
 
-const { defineField, handleSubmit } = useForm({
-    validationSchema: loginSchema,
-    initialValues: {
-        username: 'fuvavi'
-    }
+const { t } = useI18n()
+const validationSchema = loginSchema(t)
+const initialValues = {
+    username: '',
+    password: ''
+}
+
+const { defineField, handleSubmit, errors } = useForm({
+    initialValues,
+    validationSchema
 })
-
-const username = defineField('username')
-const password = defineField('password')
+const [username] = defineField('username')
+const [password] = defineField('password')
 
 const isLoading = ref(false)
 
 const onSubmit = handleSubmit((values) => {
-    console.log('Submitted with', values)
+    try {
+        isLoading.value = true
+        console.log('Submitted with', values)
+    } catch (e) {
+        console.error(e)
+    } finally {
+        isLoading.value = false
+    }
 })
 </script>
 
