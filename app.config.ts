@@ -7,6 +7,9 @@ export default defineAppConfig({
         },
         container: {
             constrained: 'max-w-5xl'
+        },
+        notifications: {
+            position: 'top-0 bottom-[unset]'
         }
     },
     icon: {

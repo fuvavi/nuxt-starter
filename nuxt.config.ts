@@ -33,5 +33,13 @@ export default defineNuxtConfig({
         options: {
             scrollBehaviorType: 'smooth'
         }
+    },
+    runtimeConfig: {
+        public: {
+            apiBaseUrl: '/api/v1'
+        }
+    },
+    routeRules: {
+        '/api/v1/**': { proxy: 'https://dummyjson.com/**' }
     }
 })

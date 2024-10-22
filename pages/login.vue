@@ -45,13 +45,15 @@
 
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
+import { API_ENDPOINT } from '~/constants/api-endpoint'
+import { HTTP_STATUS } from '~/constants/http'
 import { loginSchema } from '~/utils/validation/auth.schema'
 
 const { t } = useI18n()
 const validationSchema = loginSchema(t)
 const initialValues = {
-    username: '',
-    password: ''
+    username: 'emilys',
+    password: 'emilyspass'
 }
 
 const { defineField, handleSubmit, errors } = useForm({
@@ -62,11 +64,25 @@ const [username] = defineField('username')
 const [password] = defineField('password')
 
 const isLoading = ref(false)
+const apiBaseUrl = useRuntimeConfig().public.apiBaseUrl
+const toast = useToast()
 
-const onSubmit = handleSubmit((values) => {
+const onSubmit = handleSubmit(async (values) => {
     try {
         isLoading.value = true
-        console.log('Submitted with', values)
+        const { data, status, error } = await useFetch(`${apiBaseUrl}/${API_ENDPOINT.LOGIN}`, {
+            method: 'POST',
+            body: values
+        })
+        if (status.value == HTTP_STATUS.SUCCESS) {
+            toast.add({ title: `Welcome: ${data.value.firstName} ${data.value.lastName}` })
+            navigateTo('/')
+        } else {
+            toast.add({
+                title: `${error.value}`,
+                color: 'red'
+            })
+        }
     } catch (e) {
         console.error(e)
     } finally {
