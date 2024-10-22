@@ -75,11 +75,11 @@ const onSubmit = handleSubmit(async (values) => {
             body: values
         })
         if (status.value == HTTP_STATUS.SUCCESS) {
-            toast.add({ title: `Welcome: ${data.value.firstName} ${data.value.lastName}` })
+            toast.add({ title: `Welcome: ${data?.value?.firstName} ${data?.value?.lastName}` })
             navigateTo('/')
         } else {
             toast.add({
-                title: `${error.value}`,
+                title: `${error?.value?.data.message}`,
                 color: 'red'
             })
         }
