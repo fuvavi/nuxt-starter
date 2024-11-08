@@ -31,7 +31,7 @@
                     <UButton
                         type="submit"
                         block
-                        :loading="isLoading"
+                        :loading="loading"
                         size="lg"
                         icon="material-symbols:login-rounded"
                     >
@@ -45,11 +45,21 @@
 
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
-import { API_ENDPOINT } from '~/constants/api-endpoint'
+import { useAuth } from '~/composables/use-auth'
 import { HTTP_STATUS } from '~/constants/http'
 import { loginSchema } from '~/utils/validation/auth.schema'
 
+useHead({
+    title: 'Login'
+})
+
+definePageMeta({
+    middleware: 'auth'
+})
+
 const { t } = useI18n()
+const toast = useToast()
+const { loading, login } = useAuth()
 const validationSchema = loginSchema(t)
 const initialValues = {
     username: 'emilys',
@@ -63,30 +73,18 @@ const { defineField, handleSubmit, errors } = useForm({
 const [username] = defineField('username')
 const [password] = defineField('password')
 
-const isLoading = ref(false)
-const apiBaseUrl = useRuntimeConfig().public.apiBaseUrl
-const toast = useToast()
-
 const onSubmit = handleSubmit(async (values) => {
-    try {
-        isLoading.value = true
-        const { data, status, error } = await useFetch(`${apiBaseUrl}/${API_ENDPOINT.LOGIN}`, {
-            method: 'POST',
-            body: values
+    const response = await login(values)
+    if (response?.status.value === HTTP_STATUS.SUCCESS) {
+        toast.add({
+            title: `Welcome: ${response.data.value.firstName} ${response.data.value.lastName}`
         })
-        if (status.value == HTTP_STATUS.SUCCESS) {
-            toast.add({ title: `Welcome: ${data?.value?.firstName} ${data?.value?.lastName}` })
-            navigateTo('/')
-        } else {
-            toast.add({
-                title: `${error?.value?.data.message}`,
-                color: 'red'
-            })
-        }
-    } catch (e) {
-        console.error(e)
-    } finally {
-        isLoading.value = false
+        navigateTo('/')
+    } else {
+        toast.add({
+            title: `${response?.error?.value?.data.message}`,
+            color: 'red'
+        })
     }
 })
 </script>

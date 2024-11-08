@@ -1,3 +1,5 @@
 export const API_ENDPOINT = {
-    LOGIN: 'auth/login'
+    LOGIN: 'auth/login',
+    REGISTER: 'auth/register',
+    POST: 'post'
 }

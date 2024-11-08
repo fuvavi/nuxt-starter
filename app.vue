@@ -8,3 +8,8 @@
         </Body>
     </Html>
 </template>
+<script setup lang="ts">
+useHead({
+    title: 'Welcome to Nuxt'
+})
+</script>

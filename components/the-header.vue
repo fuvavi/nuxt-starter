@@ -32,11 +32,7 @@
                     to="/account"
                     class="inline-flex items-center rounded-full bg-gray-50"
                 >
-                    <UAvatar
-                        src="https://avatars.githubusercontent.com/u/33111017?v=4"
-                        alt="Avatar"
-                        class="h-8 w-8"
-                    />
+                    <UAvatar :src="user?.image" alt="Avatar" class="h-8 w-8" />
                 </NuxtLink>
                 <button
                     class="inline-flex items-center rounded-full text-2xl focus:outline-none focus-visible:outline-0 lg:hidden"
@@ -71,10 +67,17 @@
 <script setup lang="ts">
 import { HEADER_MENU } from '~/resources/menu'
 const isMenuOpen = ref(false)
-const isLoggedIn = ref(false)
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
+
+const useAuthInstance = useAuth()
+const { initUser } = useAuthInstance
+const { user, isLoggedIn } = storeToRefs(useAuthInstance)
+
+onMounted(() => {
+    initUser()
+})
 </script>
 
 <style scoped lang="scss">

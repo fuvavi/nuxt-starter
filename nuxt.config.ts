@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
     devtools: { enabled: true },
-    modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/i18n', '@nuxt/image', '@vee-validate/nuxt'],
+    modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/i18n', '@nuxt/image', '@vee-validate/nuxt', '@pinia/nuxt'],
     css: ['~/assets/scss/style.scss'],
     ui: {
         safelistColors: ['green']
